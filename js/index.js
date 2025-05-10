@@ -1,8 +1,8 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
-canvas.width = 1920
-canvas.height = 1080
+canvas.width = 1291 
+canvas.height = 768
 
 c.fillStyle = 'white'
 c.fillRect(0, 0, canvas.width, canvas.height)
@@ -36,7 +36,7 @@ const image = new Image()
 image.onload = () => {
   animate()
 }
-image.src = 'img/gameMap.png'
+image.src = 'img/7.png'
 
 const enemies = []
 
@@ -97,6 +97,7 @@ function animate() {
   if (enemies.length === 0) {
     enemyCount += 2
     spawnEnemies(enemyCount)
+
   }
 
   placementTiles.forEach((tile) => {
@@ -134,7 +135,7 @@ function animate() {
 
           if (enemyIndex > -1) {
             enemies.splice(enemyIndex, 1)
-            coins += 25
+            coins += 10
             document.querySelector('#coins').innerHTML = coins
           }
         }
@@ -160,8 +161,8 @@ const mouse = {
 }
 
 canvas.addEventListener('click', (event) => {
-  if (activeTile && !activeTile.isOccupied && coins - 50 >= 0) {
-    coins -= 50
+  if (activeTile && !activeTile.isOccupied && coins - 40 >= 0) {
+    coins -= 40
     document.querySelector('#coins').innerHTML = coins
     buildings.push(
       new Building({
