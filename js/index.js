@@ -199,4 +199,4 @@ window.addEventListener('mousemove', (event) => {
 })
 
 //wave 1: 5 орков
-//wave 2: 
+//wave 2: 5 орков и мини босс
