@@ -97,6 +97,8 @@ function animate() {
   if (enemies.length === 0) {
     enemyCount += 2
     spawnEnemies(enemyCount)
+    wave += 1
+    document.querySelector('#wave').innerHTML = wave
 
   }
 
