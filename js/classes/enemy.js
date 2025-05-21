@@ -4,7 +4,7 @@ class Enemy extends Sprite {
       position,
       imageSrc: 'img/orc.png',
       frames: {
-        max: 1
+        max: 7
       }
     })
     this.position = position
