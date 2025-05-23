@@ -56,6 +56,7 @@ let activeTile = undefined
 let enemyCount = 3
 let hearts = 10
 let coins = 100
+let wave = 1
 const explosions = []
 spawnEnemies(enemyCount)
 
@@ -99,8 +100,10 @@ function animate() {
     spawnEnemies(enemyCount)
     wave += 1
     document.querySelector('#wave').innerHTML = wave
-
+    
   }
+ 
+
 
   placementTiles.forEach((tile) => {
     tile.update(mouse)
