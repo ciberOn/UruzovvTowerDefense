@@ -102,6 +102,11 @@ function animate() {
     document.querySelector('#wave').innerHTML = wave
     
   }
+  if (wave === 10){
+    console.log('game over')
+    cancelAnimationFrame(animationId)
+    document.querySelector('#gameOver2').style.display = 'flex'
+  }
  
 
 
