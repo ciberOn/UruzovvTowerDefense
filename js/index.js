@@ -153,7 +153,7 @@ function animate() {
           projectile.enemy.health -= 5
         }
         else if (wave > 4){
-          projectile.enemy.health -= 4
+          projectile.enemy.health -= 5
         }
         
         if (projectile.enemy.health <= 0) {
@@ -263,7 +263,7 @@ canvas.addEventListener('click', (event) => {
   }
   else if (wave > 5){
     if (activeTile && !activeTile.isOccupied && coins - 500 >= 0) {
-    coins -= 500
+    coins -= 250
     document.querySelector('#coins').innerHTML = coins
     buildings.push(
       new Building({
