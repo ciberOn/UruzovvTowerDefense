@@ -54,9 +54,9 @@ function spawnEnemies(spawnCount) {
 
 const buildings = []
 let activeTile = undefined
-let enemyCount = 1
+let enemyCount = 3
 let hearts = 5
-let coins = 100
+let coins = 105
 let wave = 1
 
 const explosions = []
@@ -102,8 +102,12 @@ function animate() {
       enemyCount += 2
       spawnEnemies(enemyCount)
     }
-    else if (wave >= 3){
+    else if (wave === 3){
       enemyCount += 4
+      spawnEnemies(enemyCount)
+    }
+    else if (wave > 3){
+      enemyCount += 8
       spawnEnemies(enemyCount)
     }
     wave += 1
@@ -145,7 +149,13 @@ function animate() {
       // this is when a projectile hits an enemy
       if (distance < projectile.enemy.radius + projectile.radius) {
         // enemy health and enemy removal
-        projectile.enemy.health -= 5
+        if (wave <= 4) {
+          projectile.enemy.health -= 5
+        }
+        else if (wave > 4){
+          projectile.enemy.health -= 3
+        }
+        
         if (projectile.enemy.health <= 0) {
           const enemyIndex = enemies.findIndex((enemy) => {
             return projectile.enemy === enemy
@@ -179,7 +189,7 @@ const mouse = {
 }
 
 canvas.addEventListener('click', (event) => {
-  if (wave < 3){
+  if (wave < 2){
     if (activeTile && !activeTile.isOccupied && coins - 60 >= 0) {
     coins -= 60
     document.querySelector('#coins').innerHTML = coins
@@ -197,7 +207,7 @@ canvas.addEventListener('click', (event) => {
     })
   }
   }
-  else if (wave === 3 || wave === 4){
+  else if (wave === 2 || wave === 3){
     if (activeTile && !activeTile.isOccupied && coins - 100 >= 0) {
     coins -= 100
     document.querySelector('#coins').innerHTML = coins
@@ -215,9 +225,45 @@ canvas.addEventListener('click', (event) => {
     })
   }
   }
-  else if (wave >= 5) {
+  else if (wave === 4) {
     if (activeTile && !activeTile.isOccupied && coins - 150 >= 0) {
     coins -= 150
+    document.querySelector('#coins').innerHTML = coins
+    buildings.push(
+      new Building({
+        position: {
+          x: activeTile.position.x,
+          y: activeTile.position.y
+        }
+      })
+    )
+    activeTile.isOccupied = true
+    buildings.sort((a, b) => {
+      return a.position.y - b.position.y
+    })
+  }
+  }
+  else if (wave > 4){
+    if (activeTile && !activeTile.isOccupied && coins - 250 >= 0) {
+    coins -= 250
+    document.querySelector('#coins').innerHTML = coins
+    buildings.push(
+      new Building({
+        position: {
+          x: activeTile.position.x,
+          y: activeTile.position.y
+        }
+      })
+    )
+    activeTile.isOccupied = true
+    buildings.sort((a, b) => {
+      return a.position.y - b.position.y
+    })
+  }
+  }
+  else if (wave > 5){
+    if (activeTile && !activeTile.isOccupied && coins - 500 >= 0) {
+    coins -= 500
     document.querySelector('#coins').innerHTML = coins
     buildings.push(
       new Building({
@@ -253,6 +299,3 @@ window.addEventListener('mousemove', (event) => {
     }
   }
 })
-
-//wave 1: 5 орков
-//wave 2: 5 орков и мини босс
