@@ -153,7 +153,7 @@ function animate() {
           projectile.enemy.health -= 5
         }
         else if (wave > 4){
-          projectile.enemy.health -= 3
+          projectile.enemy.health -= 4
         }
         
         if (projectile.enemy.health <= 0) {
