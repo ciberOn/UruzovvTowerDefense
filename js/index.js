@@ -40,6 +40,7 @@ image.src = 'img/7.png'
 
 const enemies = []
 
+
 function spawnEnemies(spawnCount) {
   for (let i = 1; i < spawnCount + 1; i++) {
     const xOffset = i * 150
@@ -53,10 +54,11 @@ function spawnEnemies(spawnCount) {
 
 const buildings = []
 let activeTile = undefined
-let enemyCount = 3
-let hearts = 10
+let enemyCount = 1
+let hearts = 5
 let coins = 100
 let wave = 1
+
 const explosions = []
 spawnEnemies(enemyCount)
 
@@ -96,8 +98,14 @@ function animate() {
 
   // tracking total amount of enemies
   if (enemies.length === 0) {
-    enemyCount += 2
-    spawnEnemies(enemyCount)
+    if (wave < 3){
+      enemyCount += 2
+      spawnEnemies(enemyCount)
+    }
+    else if (wave >= 3){
+      enemyCount += 4
+      spawnEnemies(enemyCount)
+    }
     wave += 1
     document.querySelector('#wave').innerHTML = wave
     
@@ -137,7 +145,7 @@ function animate() {
       // this is when a projectile hits an enemy
       if (distance < projectile.enemy.radius + projectile.radius) {
         // enemy health and enemy removal
-        projectile.enemy.health -= 20
+        projectile.enemy.health -= 5
         if (projectile.enemy.health <= 0) {
           const enemyIndex = enemies.findIndex((enemy) => {
             return projectile.enemy === enemy
@@ -145,7 +153,7 @@ function animate() {
 
           if (enemyIndex > -1) {
             enemies.splice(enemyIndex, 1)
-            coins += 10
+            coins += 15
             document.querySelector('#coins').innerHTML = coins
           }
         }
@@ -171,8 +179,9 @@ const mouse = {
 }
 
 canvas.addEventListener('click', (event) => {
-  if (activeTile && !activeTile.isOccupied && coins - 40 >= 0) {
-    coins -= 40
+  if (wave < 3){
+    if (activeTile && !activeTile.isOccupied && coins - 60 >= 0) {
+    coins -= 60
     document.querySelector('#coins').innerHTML = coins
     buildings.push(
       new Building({
@@ -186,6 +195,43 @@ canvas.addEventListener('click', (event) => {
     buildings.sort((a, b) => {
       return a.position.y - b.position.y
     })
+  }
+  }
+  else if (wave === 3 || wave === 4){
+    if (activeTile && !activeTile.isOccupied && coins - 100 >= 0) {
+    coins -= 100
+    document.querySelector('#coins').innerHTML = coins
+    buildings.push(
+      new Building({
+        position: {
+          x: activeTile.position.x,
+          y: activeTile.position.y
+        }
+      })
+    )
+    activeTile.isOccupied = true
+    buildings.sort((a, b) => {
+      return a.position.y - b.position.y
+    })
+  }
+  }
+  else if (wave >= 5) {
+    if (activeTile && !activeTile.isOccupied && coins - 150 >= 0) {
+    coins -= 150
+    document.querySelector('#coins').innerHTML = coins
+    buildings.push(
+      new Building({
+        position: {
+          x: activeTile.position.x,
+          y: activeTile.position.y
+        }
+      })
+    )
+    activeTile.isOccupied = true
+    buildings.sort((a, b) => {
+      return a.position.y - b.position.y
+    })
+  }
   }
 })
 

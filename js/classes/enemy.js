@@ -48,7 +48,7 @@ class Enemy extends Sprite {
     const xDistance = waypoint.x - this.center.x
     const angle = Math.atan2(yDistance, xDistance)
 
-    const speed = 2
+    const speed = 0.5
 
     this.velocity.x = Math.cos(angle) * speed
     this.velocity.y = Math.sin(angle) * speed
@@ -60,7 +60,6 @@ class Enemy extends Sprite {
       x: this.position.x + this.width / 2,
       y: this.position.y + this.height / 2
     }
-
     if (
       Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
         Math.abs(this.velocity.x) &&
